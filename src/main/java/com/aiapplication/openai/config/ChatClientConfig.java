@@ -11,7 +11,10 @@ public class ChatClientConfig {
     @Bean
     public ChatClient openAiChatClient(OpenAiChatModel openAiChatModel){
         ChatClient.Builder chatClientBuilder = ChatClient.builder(openAiChatModel);
-        return chatClientBuilder.build();
+        return chatClientBuilder
+                .defaultSystem("You are an HR chat bot in a big company. Only respond to HR related questions")
+                .defaultUser("How can you help me?")
+                .build();
     }
 
 }

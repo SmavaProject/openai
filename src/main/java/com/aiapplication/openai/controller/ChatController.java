@@ -1,11 +1,13 @@
 package com.aiapplication.openai.controller;
 
 
+import model.CountryCities;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.ChatClientAttributes;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -40,5 +42,19 @@ public class ChatController {
                 .call()
                 .content();
         return response;
+    }
+
+    //gives structured output in json format
+    @GetMapping("/chat-cities")
+    public ResponseEntity<CountryCities> chatBean(@RequestParam("county") String county){
+       CountryCities response = openAiChatClient
+                .prompt()
+               .system("""
+                       Provide the list of cities in the county
+                       """)
+                .user(county)
+                .call()
+                .entity(CountryCities.class);
+        return ResponseEntity.ok(response);
     }
 }

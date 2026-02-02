@@ -14,7 +14,7 @@ public class HRPolicyLoader {
 
     private final VectorStore vectorStore;
 
-    @Value("classpath:Our_HR_Policies.pdf")
+    @Value("classpath:Company_HR_Policies.pdf")
     Resource policyFile;
 
     /*

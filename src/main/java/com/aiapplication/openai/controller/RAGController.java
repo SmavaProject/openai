@@ -23,10 +23,10 @@ public class RAGController {
    // private final ChatClient webSearchchatClient;
     private final VectorStore vectorStore;
 
-    @Value("classpath:/promptTemplates/systemPromptRandomDataTemplate.st")
+    @Value("classpath:/templates/systemPromptRandomDataTemplate.st")
     Resource promptTemplate;
 
-    @Value("classpath:/promptTemplates/hrPromptTemplate.st")
+    @Value("classpath:/templates/hrPromptTemplate.st")
     Resource hrSystemTemplate;
 
     public RAGController(@Qualifier("jdbcChatClient") ChatClient chatClient,
@@ -48,8 +48,8 @@ public class RAGController {
                 .map(Document::getText)
                 .collect(Collectors.joining(System.lineSeparator()));
         String answer = chatClient.prompt()
-                /*.system(promptSystemSpec -> promptSystemSpec.text(hrSystemTemplate)
-                                .param("documents", similarContext))*/
+                .system(promptSystemSpec -> promptSystemSpec.text(hrSystemTemplate)
+                                .param("documents", similarContext))
                 .advisors(a -> a.param(CONVERSATION_ID, username))
                 .user(message)
                 .call().content();

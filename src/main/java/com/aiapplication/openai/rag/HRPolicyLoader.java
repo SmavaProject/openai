@@ -3,6 +3,8 @@ package com.aiapplication.openai.rag;
 import jakarta.annotation.PostConstruct;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
+import org.springframework.ai.transformer.splitter.TextSplitter;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,7 @@ public class HRPolicyLoader {
     public void loadPdf(){
         TikaDocumentReader documentReader = new TikaDocumentReader(policyFile);
         java.util.List<Document> docs = documentReader.get();
-        vectorStore.add(docs);
+        TextSplitter textSplitter =  TokenTextSplitter.builder().withChunkSize(100).withMaxNumChunks(4000).build();
+        vectorStore.add(textSplitter.split(docs));
     }
 }

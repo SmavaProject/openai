@@ -17,7 +17,7 @@ public class HelpDeskController {
     private final ChatClient chatClient;
     private final HelpDeskTools helpDeskTools;
 
-    public HelpDeskController(@Qualifier("helpDeskChatClient") ChatClient chatClient, HelpDeskTools helpDeskTools) {
+    public HelpDeskController(@Qualifier("timeChatClient") ChatClient chatClient, HelpDeskTools helpDeskTools) {
         this.chatClient = chatClient;
         this.helpDeskTools = helpDeskTools;
     }

@@ -1,3 +1,4 @@
+/*
 package com.aiapplication.openai.controller;
 
 
@@ -58,3 +59,4 @@ public class ChatController {
         return ResponseEntity.ok(response);
     }
 }
+*/

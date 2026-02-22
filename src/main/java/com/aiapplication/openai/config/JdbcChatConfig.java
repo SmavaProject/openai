@@ -12,6 +12,7 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.util.List;
@@ -40,7 +41,8 @@ public class JdbcChatConfig {
     not InMemoryChatMemoryRepository
      */
     @Bean("jdbcChatClient")
-    public ChatClient memoryChatClient (ChatClient.Builder chatClientBuilder, ChatMemory chatMemory,
+    public ChatClient memoryChatClient (@Qualifier("getDefaultChatClientBuilder") ChatClient.Builder chatClientBuilder,
+                                        ChatMemory chatMemory,
                                         RetrievalAugmentationAdvisor retrievalAugmentationAdvisor) {
 
         Advisor loggerAdvisor = new SimpleLoggerAdvisor();

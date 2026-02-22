@@ -1,3 +1,4 @@
+/*
 package com.aiapplication.openai.controller;
 
 
@@ -38,3 +39,4 @@ public class JdbcChatController {
 
     }
 }
+*/
